@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Data analytics portfolio of Syla Cintron, Bentley University.">
+<title>Syla Cintron Data Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Karla:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+/* Layout: a fixed name column beside a scrolling column of case studies on desktop; a single column on phones. */
+:root {
+  --bg: #fbfbf9;
+  --surface: #ffffff;
+  --ink: #1b2420;
+  --muted: #5d6963;
+  --line: #dfe4e0;
+  --accent: #1e6a4c;
+  --accent-soft: #e3f0e9;
+  --highlight: #c7811c;
+  --bar-muted: #bfcdc5;
+  --ok: #1e6a4c;
+  --code-bg: #f2f5f2;
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Karla", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121714; --surface: #18201c; --ink: #e6ece8; --muted: #9aa8a0; --line: #2a352f;
+    --accent: #7fd1a8; --accent-soft: #1d3329; --highlight: #e8a94e; --bar-muted: #3f4f46; --ok: #7fd1a8; --code-bg: #1b2420;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121714; --surface: #18201c; --ink: #e6ece8; --muted: #9aa8a0; --line: #2a352f;
+  --accent: #7fd1a8; --accent-soft: #1d3329; --highlight: #e8a94e; --bar-muted: #3f4f46; --ok: #7fd1a8; --code-bg: #1b2420;
+  color-scheme: dark;
+}
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 17px; line-height: 1.65;
+}
+.wrap {
+  max-width: 1180px; margin: 0 auto;
+  padding-block: 56px 72px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 64px;
+}
+.wrap > * { min-width: 0; }
+@media (min-width: 1000px) {
+  .wrap { grid-template-columns: 300px minmax(0, 1fr); column-gap: 72px; padding-block: 72px 88px; }
+  .wrap > header { grid-row: 1 / span 4; align-self: start; position: sticky; top: calc(48px + env(safe-area-inset-top, 0px)); }
+  .wrap > :not(header) { grid-column: 2; }
+}
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.5rem, 5vw, 3.2rem); font-weight: 650; letter-spacing: -0.015em; }
+h2 { font-size: clamp(1.7rem, 3.4vw, 2.1rem); font-weight: 500; letter-spacing: -0.01em; display: flex; align-items: baseline; gap: 14px; }
+h2::after { content: ""; flex: 1; height: 1px; background: var(--line); transform: translateY(-6px); }
+h3 { font-family: var(--body); font-size: clamp(1.3rem, 2.8vw, 1.55rem); font-weight: 700; letter-spacing: -0.005em; }
+p { margin: 0; max-width: 65ch; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Header */
+header { display: grid; gap: 22px; }
+.lede { font-size: 1.08rem; color: var(--muted); max-width: 52ch; }
+.lede strong { color: var(--ink); font-weight: 700; }
+.contact { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; font-size: 0.98rem; }
+.contact .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.contact .email { font-family: var(--mono); font-size: 0.86rem; user-select: all; word-break: break-all; }
+.copy {
+  font: 600 0.78rem var(--body); letter-spacing: 0.02em;
+  border: 0; background: var(--accent-soft); color: var(--accent);
+  border-radius: 999px; padding: 4px 12px; cursor: pointer;
+}
+.copy:hover { background: var(--accent); color: var(--surface); }
+.facts { margin: 0; display: grid; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
+.facts div { display: grid; gap: 0; }
+.facts dt { font-size: 0.82rem; color: var(--muted); }
+.facts dd { margin: 0; font-weight: 600; }
+
+/* Sections */
+section { display: grid; gap: 28px; }
+.project { display: grid; gap: 18px; padding-bottom: 36px; border-bottom: 1px solid var(--line); }
+.project:last-child { border-bottom: 0; padding-bottom: 0; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 10px; font-size: 0.86rem; color: var(--muted); align-items: center; }
+.tag {
+  font-size: 0.78rem; font-weight: 600; padding: 1px 10px; border-radius: 999px;
+  border: 1px solid var(--line); color: var(--ink);
+}
+.finding {
+  background: var(--accent-soft); border-radius: 4px; padding: 14px 18px; max-width: 68ch;
+  font-size: 1.06rem;
+}
+.finding b { color: var(--accent); font-weight: 700; }
+ul.points { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; max-width: 65ch; }
+.role { font-size: 0.95rem; color: var(--muted); max-width: 65ch; }
+.role b { color: var(--ink); }
+
+figure { margin: 0; display: grid; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 18px 18px 14px; }
+figcaption { font-size: 0.85rem; color: var(--muted); }
+figure svg { width: 100%; height: auto; display: block; }
+svg text { font-family: var(--body); fill: var(--ink); }
+svg .num { font-family: var(--mono); font-size: 13px; }
+svg .lbl { font-size: 14px; }
+svg .axis { stroke: var(--line); }
+svg .bar { fill: var(--bar-muted); }
+svg .bar.hi { fill: var(--highlight); }
+svg .note { fill: var(--muted); font-size: 12px; }
+
+/* SQL */
+.tabs { display: flex; flex-wrap: wrap; gap: 4px 24px; border-bottom: 1px solid var(--line); }
+.tabs button {
+  font: 600 0.98rem var(--body); padding: 10px 0; margin-bottom: -1px; cursor: pointer;
+  border: 0; border-bottom: 2px solid transparent; background: none; color: var(--muted);
+}
+.tabs button:hover { color: var(--ink); }
+.tabs button[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+.panel { display: grid; gap: 16px; min-width: 0; }
+.checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; max-width: 70ch; }
+.checks li { display: grid; grid-template-columns: auto 1fr; gap: 10px; font-size: 0.95rem; }
+.checks li::before { content: "✓"; color: var(--ok); font-weight: 700; }
+.code {
+  background: var(--code-bg); border: 1px solid var(--line); border-radius: 4px;
+  max-height: 420px; overflow: auto; min-width: 0;
+}
+.code pre { margin: 0; padding: 16px 18px; font: 0.82rem/1.55 var(--mono); tab-size: 4; }
+.code .c { color: var(--muted); font-style: italic; }
+.code .k { color: var(--accent); font-weight: 600; }
+.code .s { color: var(--ok); }
+.scroll-x { overflow-x: auto; }
+.erd { min-width: 640px; }
+.erd rect { fill: var(--surface); stroke: var(--ink); stroke-width: 1.2; }
+.erd .hdr { fill: var(--accent-soft); stroke: var(--ink); stroke-width: 1.2; }
+.erd text { font-size: 12px; }
+.erd .t { font-weight: 700; font-size: 13px; }
+.erd .pk { font-family: var(--mono); font-size: 11px; fill: var(--accent); }
+.erd line, .erd path { stroke: var(--ink); stroke-width: 1.2; fill: none; }
+table.result { border-collapse: collapse; font-size: 0.88rem; font-variant-numeric: tabular-nums; }
+table.result th, table.result td { text-align: left; padding: 6px 14px 6px 0; border-bottom: 1px solid var(--line); }
+table.result th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
+table.result td.n { text-align: right; font-family: var(--mono); }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px; }
+.skills div { display: grid; gap: 6px; align-content: start; }
+.skills h4 { margin: 0; font: 600 0.8rem var(--body); text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+.skills p { font-size: 0.98rem; }
+footer { font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 20px; }
+
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .wrap { padding-block: 32px 48px; gap: 48px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tabs button { transition: background .15s, color .15s; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Syla Cintron</h1>
+    <p class="lede">Data Analytics and Artificial Intelligence student at <strong>Bentley University</strong>. I build regression and machine learning models, design relational databases, and turn the results into recommendations a business can act on.</p>
+    <div class="contact">
+      <div class="row">
+        <span class="email" id="email">scintron@falcon.bentley.edu</span>
+        <button class="copy" id="copy-email" type="button">Copy email</button>
+      </div>
+      <div class="row">
+        <a href="https://www.linkedin.com/in/sylacintron" target="_blank" rel="noopener">LinkedIn</a>
+        <span>·</span>
+        <span>Waltham, MA</span>
+      </div>
+    </div>
+    <dl class="facts">
+      <div><dt>Degree</dt><dd>B.S. Data Analytics</dd></div>
+      <div><dt>Second major</dt><dd>Artificial Intelligence</dd></div>
+      <div><dt>Minors</dt><dd>Business Admin &amp; Healthcare</dd></div>
+      <div><dt>Graduating</dt><dd>May 2028 · GPA 3.6</dd></div>
+    </dl>
+  </header>
+
+  <section aria-labelledby="work">
+    <h2 id="work">Projects</h2>
+
+    <article class="project">
+      <div class="meta"><span>MA 252 Regression Analysis</span><span>·</span><span>May 2026</span><span>·</span><span class="tag">R</span><span class="tag">multiple regression</span><span class="tag">interaction terms</span></div>
+      <h3>What drives post-college earnings?</h3>
+      <p>Using a random sample of 1,000 institutions from the U.S. Department of Education's College Scorecard, we modeled graduates' median earnings ten years after entry from SAT average, net price, school type and school size. We tested four models, including interactions between selectivity, cost and institution type.</p>
+      <p class="finding">The payoff for academic selectivity depends on school size. Each SAT point is worth <b>$52</b> in earnings at small schools, <b>$79</b> at medium schools and <b>$71</b> at large schools. The final model explains <b>52.45%</b> of the variation in earnings (adjusted R²).</p>
+      <figure>
+        <svg viewBox="0 0 560 150" role="img" aria-label="Earnings gain per SAT point: small schools $52.22, medium $78.92, large $71.13">
+          <line class="axis" x1="120" y1="12" x2="120" y2="122"/>
+          <text class="lbl" x="110" y="37" text-anchor="end">Small</text>
+          <rect class="bar" x="120" y="22" width="209" height="22" rx="3"/>
+          <text class="num" x="337" y="38">$52.22</text>
+          <text class="lbl" x="110" y="72" text-anchor="end">Medium</text>
+          <rect class="bar hi" x="120" y="57" width="316" height="22" rx="3"/>
+          <text class="num" x="444" y="73">$78.92</text>
+          <text class="lbl" x="110" y="107" text-anchor="end">Large</text>
+          <rect class="bar" x="120" y="92" width="285" height="22" rx="3"/>
+          <text class="num" x="413" y="108">$71.13</text>
+          <text class="note" x="120" y="142">Change in median earnings per 1-point increase in SAT average, by school size</text>
+        </svg>
+        <figcaption>Slopes from the final model (SAT × size interaction). Both interactions are significant (medium p &lt; 0.001, large p = 0.029).</figcaption>
+      </figure>
+      <ul class="points">
+        <li>Rejected interactions that did not hold up. SAT × school type and net price × school type were not significant and left adjusted R² essentially unchanged (0.514), so they stayed out of the final model.</li>
+        <li>Kept earnings untransformed. A log transform was slightly more normal, but it would have made the dollar interpretation less clear for readers.</li>
+      </ul>
+      <p class="role"><b>My role:</b> Team project with Nathania Kwik. I handled data cleaning, exploratory data analysis, interpretation of the base model, and the presentation slides.</p>
+    </article>
+
+    <article class="project">
+      <div class="meta"><span>AI in Retail · Assignment 1</span><span>·</span><span>October 2026</span><span>·</span><span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">classification</span></div>
+      <h3>Finding unsatisfied customers, priced in dollars</h3>
+      <p>I built classifiers to predict which retail customers are unsatisfied with AI-driven shopping experiences. I compared KNN, logistic regression, SVM, decision trees, random forests and Naive Bayes. Then I chose a model by business value instead of accuracy: catching an unsatisfied customer was worth $5,000, and a false alarm cost $500.</p>
+      <p class="finding">Logistic regression with class weights had the highest net benefit, <b>$68,500</b>, with <b>66.67%</b> recall. It beat a random forest that had slightly higher accuracy, because it caught more of the customers who mattered.</p>
+      <figure>
+        <svg viewBox="0 0 560 120" role="img" aria-label="Net benefit: best model before class weights $62,500, logistic regression with class weights $68,500">
+          <line class="axis" x1="200" y1="12" x2="200" y2="90"/>
+          <text class="lbl" x="190" y="37" text-anchor="end">Before class weights</text>
+          <rect class="bar" x="200" y="22" width="268" height="22" rx="3"/>
+          <text class="num" x="476" y="38">$62,500</text>
+          <text class="lbl" x="190" y="72" text-anchor="end">After class weights</text>
+          <rect class="bar hi" x="200" y="57" width="294" height="22" rx="3"/>
+          <text class="num" x="502" y="73">$68,500</text>
+          <text class="note" x="200" y="110">Net benefit of the best model in each round (axis starts at $0)</text>
+        </svg>
+        <figcaption>Before weighting, Naive Bayes led. After adding class weights, logistic regression led by $6,000.</figcaption>
+      </figure>
+      <ul class="points">
+        <li>Treated "Unsatisfied" as the positive class, because missing an unhappy customer costs the business more than a false alarm.</li>
+        <li>One-hot encoded categorical features. Scaled features for the distance-based models (KNN, SVM, logistic regression) and left the tree-based models unscaled.</li>
+        <li>Used a stratified 80/20 train-test split with a fixed random seed, so the results can be reproduced.</li>
+      </ul>
+    </article>
+
+    <article class="project">
+      <div class="meta"><span>April 2026</span><span>·</span><span>Data Analytics Lead</span><span>·</span><span class="tag">predictive modeling</span><span class="tag">healthcare</span></div>
+      <h3>PreFall: early warning for relapse risk</h3>
+      <p>PreFall is a predictive analytics concept that flags elevated relapse risk early, using physiological and behavioral data. As Data Analytics Lead, I analyzed heart rate and behavioral indicators to find patterns linked to higher risk. I worked with the team to turn those findings into a working healthcare application, which we presented as a real-world tool for relapse prevention.</p>
+    </article>
+
+    <article class="project">
+      <div class="meta"><span>April 2026</span><span>·</span><span class="tag">multiple regression</span><span class="tag">cross-country data</span></div>
+      <h3>Environmental performance across 130+ countries</h3>
+      <p>I analyzed how GDP and CO₂ growth relate to environmental performance across more than 130 countries. I built and interpreted a multiple regression model to evaluate which factors are associated with better environmental outcomes.</p>
+    </article>
+  </section>
+
+  <section aria-labelledby="sql">
+    <h2 id="sql">Database design &amp; SQL</h2>
+    <p>Three pieces of coursework from CS 160 and CS 350, written in MySQL and Oracle SQL. Each script below was run end to end against a live MySQL 26.7 server. For the schemas, I also tested that bad data gets rejected. Where testing found an integrity gap, I revised the script, and the header comment says what changed.</p>
+
+    <div class="tabs" role="tablist" aria-label="SQL projects">
+      <button role="tab" id="tab-nps" aria-controls="p-nps" aria-selected="true" type="button">National Park Service</button>
+      <button role="tab" id="tab-fit" aria-controls="p-fit" aria-selected="false" type="button">Fitness studio (EERD)</button>
+      <button role="tab" id="tab-store" aria-controls="p-store" aria-selected="false" type="button">Department store queries</button>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-nps" aria-labelledby="tab-nps">
+      <h3>National Park Service schema</h3>
+      <p>A database for park staffing and visitor counts. Employees work at many parks through an associative entity (EmployeePark) that records weekly hours. Visitation is a weak entity, with one row per park per year.</p>
+      <figure>
+        <div class="scroll-x">
+          <svg class="erd" viewBox="0 0 760 190" role="img" aria-label="ERD: Employee 1 to many EmployeePark many to 1 Park 1 to many Visitation">
+            <g transform="translate(6,20)">
+              <rect class="hdr" width="160" height="24"/><text class="t" x="10" y="17">Employee</text>
+              <rect y="24" width="160" height="116"/>
+              <text class="pk" x="10" y="44">PK EmployeeID</text>
+              <text x="10" y="62">Name</text><text x="10" y="80">Age · StartDate</text>
+              <text x="10" y="98">JobTitle</text><text x="10" y="116">HourlyRate</text>
+            </g>
+            <g transform="translate(206,20)">
+              <rect class="hdr" width="160" height="24"/><text class="t" x="10" y="17">EmployeePark</text>
+              <rect y="24" width="160" height="80"/>
+              <text class="pk" x="10" y="44">PK,FK EmployeeID</text>
+              <text class="pk" x="10" y="62">PK,FK ParkNumber</text>
+              <text x="10" y="80">HoursPerWeek</text>
+            </g>
+            <g transform="translate(406,20)">
+              <rect class="hdr" width="160" height="24"/><text class="t" x="10" y="17">Park</text>
+              <rect y="24" width="160" height="98"/>
+              <text class="pk" x="10" y="44">PK ParkNumber</text>
+              <text x="10" y="62">ParkName</text><text x="10" y="80">ParkAddress</text><text x="10" y="98">ParkCategory</text>
+            </g>
+            <g transform="translate(596,20)">
+              <rect class="hdr" width="158" height="24"/><text class="t" x="10" y="17">Visitation</text>
+              <rect y="24" width="158" height="80"/>
+              <text class="pk" x="10" y="44">PK,FK ParkNumber</text>
+              <text class="pk" x="10" y="62">PK Year</text>
+              <text x="10" y="80">NumOfVisitors</text>
+            </g>
+            <!-- Employee ||—< EmployeePark -->
+            <line x1="166" y1="70" x2="206" y2="70"/>
+            <line x1="172" y1="64" x2="172" y2="76"/><line x1="177" y1="64" x2="177" y2="76"/>
+            <path d="M196 70 L206 64 M196 70 L206 76"/>
+            <!-- EmployeePark >—|| Park -->
+            <line x1="366" y1="70" x2="406" y2="70"/>
+            <path d="M376 70 L366 64 M376 70 L366 76"/>
+            <line x1="395" y1="64" x2="395" y2="76"/><line x1="400" y1="64" x2="400" y2="76"/>
+            <!-- Park ||—< Visitation -->
+            <line x1="566" y1="70" x2="596" y2="70"/>
+            <line x1="572" y1="64" x2="572" y2="76"/><line x1="577" y1="64" x2="577" y2="76"/>
+            <path d="M586 70 L596 64 M586 70 L596 76"/>
+            <text class="note" x="6" y="182">Crow's foot notation: one employee works at many parks, one park has many staff and many yearly visit counts.</text>
+          </svg>
+        </div>
+      </figure>
+      <ul class="checks">
+        <li>All four tables and the sample data load cleanly in MySQL.</li>
+        <li>Revised: the original script left out the foreign keys drawn in the ERD, so it accepted a work shift for an employee who didn't exist. Those inserts are now rejected (error 1452).</li>
+        <li>Added a labor-cost query. Result: Acadia $1,415/week across 2 staff, Boston Harbor Islands $450, Cape Cod $435.</li>
+      </ul>
+      <div class="code"><pre><span class="c">-- Syla Cintron</span>
+<span class="c">-- CS 160 – Data Driven Decision Making</span>
+<span class="c">-- National Park Service: relational schema (MySQL)</span>
+<span class="c">-- Revised: added the foreign keys shown in the ERD so the database</span>
+<span class="c">-- rejects staffing or visitation rows for parks/employees that don't exist.</span>
+
+<span class="k">DROP</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">EXISTS</span> Visitation;
+<span class="k">DROP</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">EXISTS</span> EmployeePark;
+<span class="k">DROP</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">EXISTS</span> Park;
+<span class="k">DROP</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">EXISTS</span> Employee;
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> Employee (
+    EmployeeID   INT,
+    Name         VARCHAR(100) <span class="k">NOT</span> <span class="k">NULL</span>,
+    Age          INT,
+    StartDate    <span class="k">DATE</span>,
+    JobTitle     VARCHAR(100),
+    HourlyRate   DECIMAL(5,2),
+    <span class="k">PRIMARY</span> <span class="k">KEY</span> (EmployeeID)
+);
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> Park (
+    ParkNumber    INT,
+    ParkName      VARCHAR(100) <span class="k">NOT</span> <span class="k">NULL</span>,
+    ParkAddress   VARCHAR(300),
+    ParkCategory  VARCHAR(100),
+    <span class="k">PRIMARY</span> <span class="k">KEY</span> (ParkNumber)
+);
+
+<span class="c">-- Associative entity: an employee can work at many parks, a park has many employees</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> EmployeePark (
+    EmployeeID    INT,
+    ParkNumber    INT,
+    HoursPerWeek  INT,
+    <span class="k">PRIMARY</span> <span class="k">KEY</span> (EmployeeID, ParkNumber),
+    <span class="k">FOREIGN</span> <span class="k">KEY</span> (EmployeeID) <span class="k">REFERENCES</span> Employee (EmployeeID),
+    <span class="k">FOREIGN</span> <span class="k">KEY</span> (ParkNumber) <span class="k">REFERENCES</span> Park (ParkNumber)
+);
+
+<span class="c">-- Weak entity: one visitor count per park per year</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> Visitation (
+    ParkNumber     INT,
+    Year           YEAR,
+    NumOfVisitors  INT,
+    <span class="k">PRIMARY</span> <span class="k">KEY</span> (ParkNumber, Year),
+    <span class="k">FOREIGN</span> <span class="k">KEY</span> (ParkNumber) <span class="k">REFERENCES</span> Park (ParkNumber)
+);
+
+<span class="c">-- Sample data</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> Park <span class="k">VALUES</span>
+    (1, <span class="s">'Acadia'</span>, <span class="s">'Bar Harbor, ME'</span>, <span class="s">'National Park'</span>),
+    (2, <span class="s">'Cape Cod'</span>, <span class="s">'Wellfleet, MA'</span>, <span class="s">'National Seashore'</span>),
+    (3, <span class="s">'Boston Harbor Islands'</span>, <span class="s">'Boston, MA'</span>, <span class="s">'National Recreation Area'</span>);
+
+<span class="k">INSERT</span> <span class="k">INTO</span> Employee <span class="k">VALUES</span>
+    (10, <span class="s">'Ana Ruiz'</span>,   29, <span class="s">'2022-05-01'</span>, <span class="s">'Park Ranger'</span>,   24.50),
+    (11, <span class="s">'Ben Okafor'</span>, 41, <span class="s">'2015-03-15'</span>, <span class="s">'Maintenance'</span>,   21.75),
+    (12, <span class="s">'Cy Patel'</span>,   23, <span class="s">'2025-06-10'</span>, <span class="s">'Guide'</span>,         18.00);
+
+<span class="k">INSERT</span> <span class="k">INTO</span> EmployeePark <span class="k">VALUES</span>
+    (10, 1, 40), (11, 1, 20), (11, 2, 20), (12, 3, 25);
+
+<span class="k">INSERT</span> <span class="k">INTO</span> Visitation <span class="k">VALUES</span>
+    (1, 2024, 3961000), (1, 2025, 4012000),
+    (2, 2024, 3802000), (3, 2024,  410000);
+
+<span class="c">-- Weekly labor cost per park</span>
+<span class="k">SELECT</span> p.ParkName,
+       <span class="k">COUNT</span>(ep.EmployeeID)                     <span class="k">AS</span> Staff,
+       <span class="k">SUM</span>(ep.HoursPerWeek * e.HourlyRate)      <span class="k">AS</span> WeeklyLaborCost
+<span class="k">FROM</span> Park p
+<span class="k">JOIN</span> EmployeePark ep <span class="k">ON</span> ep.ParkNumber = p.ParkNumber
+<span class="k">JOIN</span> Employee e      <span class="k">ON</span> e.EmployeeID  = ep.EmployeeID
+<span class="k">GROUP</span> <span class="k">BY</span> p.ParkName
+<span class="k">ORDER</span> <span class="k">BY</span> WeeklyLaborCost <span class="k">DESC</span>;</pre></div>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-fit" aria-labelledby="tab-fit" hidden>
+      <h3>Fitness studio supertype/subtype</h3>
+      <p>An enhanced ERD carried into Oracle SQL. FitnessClass is the supertype with shared attributes. YogaClass and CyclingClass are subtypes with their own attributes, and members register for classes through ClassRegistration.</p>
+      <ul class="checks">
+        <li>All five tables, sample data and the summary query run cleanly.</li>
+        <li>Revised: subtypes are now disjoint. Each subtype references (ClassID, ClassType), so a cycling class can't also be stored as a yoga class. That insert is now rejected.</li>
+        <li>Added CHECK constraints for the class type ('Yoga' or 'Cycling') and the Heated flag ('TRUE' or 'FALSE'). An unknown class type is rejected.</li>
+        <li>Registrations for members who don't exist are rejected by the foreign key.</li>
+      </ul>
+      <div class="code"><pre><span class="c">-- Syla Cintron</span>
+<span class="c">-- CS 350 – Database Management</span>
+<span class="c">-- Fitness studio: supertype/subtype (EERD) implementation (Oracle SQL)</span>
+<span class="c">-- Revised: ClassType is now checked, and each subtype table references</span>
+<span class="c">-- (ClassID, ClassType), so a class can only be a Yoga OR a Cycling class</span>
+<span class="c">-- (disjoint subtypes), matching its type in FitnessClass.</span>
+
+<span class="k">DROP</span> <span class="k">TABLE</span> ClassRegistration <span class="k">CASCADE</span> <span class="k">CONSTRAINTS</span>;
+<span class="k">DROP</span> <span class="k">TABLE</span> YogaClass <span class="k">CASCADE</span> <span class="k">CONSTRAINTS</span>;
+<span class="k">DROP</span> <span class="k">TABLE</span> CyclingClass <span class="k">CASCADE</span> <span class="k">CONSTRAINTS</span>;
+<span class="k">DROP</span> <span class="k">TABLE</span> FitnessClass <span class="k">CASCADE</span> <span class="k">CONSTRAINTS</span>;
+<span class="k">DROP</span> <span class="k">TABLE</span> Member <span class="k">CASCADE</span> <span class="k">CONSTRAINTS</span>;
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> Member (
+    MemberID        NUMBER,
+    FirstName       VARCHAR2(100) <span class="k">NOT</span> <span class="k">NULL</span>,
+    LastName        VARCHAR2(100) <span class="k">NOT</span> <span class="k">NULL</span>,
+    Email           VARCHAR2(150),
+    MembershipType  VARCHAR2(50),
+    <span class="k">CONSTRAINT</span> pk_member <span class="k">PRIMARY</span> <span class="k">KEY</span> (MemberID)
+);
+
+<span class="c">-- Supertype</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> FitnessClass (
+    ClassID          NUMBER,
+    ClassName        VARCHAR2(100) <span class="k">NOT</span> <span class="k">NULL</span>,
+    ClassType        VARCHAR2(50)  <span class="k">NOT</span> <span class="k">NULL</span>,   <span class="c">-- subtype discriminator</span>
+    Duration         NUMBER,
+    DifficultyLevel  VARCHAR2(50),
+    InstructorName   VARCHAR2(100),
+    <span class="k">CONSTRAINT</span> pk_fitness_class <span class="k">PRIMARY</span> <span class="k">KEY</span> (ClassID),
+    <span class="k">CONSTRAINT</span> ck_class_type <span class="k">CHECK</span> (ClassType <span class="k">IN</span> (<span class="s">'Yoga'</span>, <span class="s">'Cycling'</span>)),
+    <span class="k">CONSTRAINT</span> uq_class_id_type <span class="k">UNIQUE</span> (ClassID, ClassType)
+);
+
+<span class="c">-- Subtype: yoga</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> YogaClass (
+    ClassID          NUMBER,
+    ClassType        VARCHAR2(50) <span class="k">DEFAULT</span> <span class="s">'Yoga'</span> <span class="k">NOT</span> <span class="k">NULL</span>,
+    YogaStyle        VARCHAR2(100),
+    Heated           VARCHAR2(5),
+    EquipmentNeeded  VARCHAR2(200),
+    IntensityLevel   VARCHAR2(50),
+    <span class="k">CONSTRAINT</span> pk_yoga_class <span class="k">PRIMARY</span> <span class="k">KEY</span> (ClassID),
+    <span class="k">CONSTRAINT</span> ck_yoga_type <span class="k">CHECK</span> (ClassType = <span class="s">'Yoga'</span>),
+    <span class="k">CONSTRAINT</span> ck_yoga_heated <span class="k">CHECK</span> (Heated <span class="k">IN</span> (<span class="s">'TRUE'</span>, <span class="s">'FALSE'</span>)),
+    <span class="k">CONSTRAINT</span> fk_yoga_fitness <span class="k">FOREIGN</span> <span class="k">KEY</span> (ClassID, ClassType)
+        <span class="k">REFERENCES</span> FitnessClass (ClassID, ClassType)
+);
+
+<span class="c">-- Subtype: cycling</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> CyclingClass (
+    ClassID          NUMBER,
+    ClassType        VARCHAR2(50) <span class="k">DEFAULT</span> <span class="s">'Cycling'</span> <span class="k">NOT</span> <span class="k">NULL</span>,
+    BikeType         VARCHAR2(100),
+    ResistanceLevel  NUMBER,
+    MusicTheme       VARCHAR2(100),
+    TargetDistance   NUMBER(10,2),
+    <span class="k">CONSTRAINT</span> pk_cycling_class <span class="k">PRIMARY</span> <span class="k">KEY</span> (ClassID),
+    <span class="k">CONSTRAINT</span> ck_cycling_type <span class="k">CHECK</span> (ClassType = <span class="s">'Cycling'</span>),
+    <span class="k">CONSTRAINT</span> fk_cycling_fitness <span class="k">FOREIGN</span> <span class="k">KEY</span> (ClassID, ClassType)
+        <span class="k">REFERENCES</span> FitnessClass (ClassID, ClassType)
+);
+
+<span class="c">-- Associative entity: members register for many classes</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> ClassRegistration (
+    MemberID          NUMBER,
+    ClassID           NUMBER,
+    RegistrationDate  <span class="k">DATE</span>,
+    AttendanceStatus  VARCHAR2(50),
+    <span class="k">CONSTRAINT</span> pk_class_registration <span class="k">PRIMARY</span> <span class="k">KEY</span> (MemberID, ClassID),
+    <span class="k">CONSTRAINT</span> fk_registration_member <span class="k">FOREIGN</span> <span class="k">KEY</span> (MemberID) <span class="k">REFERENCES</span> Member (MemberID),
+    <span class="k">CONSTRAINT</span> fk_registration_class  <span class="k">FOREIGN</span> <span class="k">KEY</span> (ClassID)  <span class="k">REFERENCES</span> FitnessClass (ClassID)
+);
+
+<span class="c">-- Sample data</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> Member <span class="k">VALUES</span> (1, <span class="s">'Maya'</span>, <span class="s">'Lopez'</span>, <span class="s">'maya@yoga.com'</span>, <span class="s">'Premium'</span>);
+<span class="k">INSERT</span> <span class="k">INTO</span> Member <span class="k">VALUES</span> (2, <span class="s">'Jordan'</span>, <span class="s">'Lee'</span>, <span class="s">'jordan@yoga.com'</span>, <span class="s">'Standard'</span>);
+
+<span class="k">INSERT</span> <span class="k">INTO</span> FitnessClass <span class="k">VALUES</span> (101, <span class="s">'Morning Flow'</span>, <span class="s">'Yoga'</span>, 60, <span class="s">'Intermediate'</span>, <span class="s">'Ava Reed'</span>);
+<span class="k">INSERT</span> <span class="k">INTO</span> FitnessClass <span class="k">VALUES</span> (102, <span class="s">'Power Ride'</span>, <span class="s">'Cycling'</span>, 45, <span class="s">'Advanced'</span>, <span class="s">'Noah James'</span>);
+
+<span class="k">INSERT</span> <span class="k">INTO</span> YogaClass (ClassID, YogaStyle, Heated, EquipmentNeeded, IntensityLevel)
+<span class="k">VALUES</span> (101, <span class="s">'Vinyasa'</span>, <span class="s">'TRUE'</span>, <span class="s">'Yoga Mat'</span>, <span class="s">'Moderate'</span>);
+
+<span class="k">INSERT</span> <span class="k">INTO</span> CyclingClass (ClassID, BikeType, ResistanceLevel, MusicTheme, TargetDistance)
+<span class="k">VALUES</span> (102, <span class="s">'Stationary'</span>, 7, <span class="s">'Pop'</span>, 12.5);
+
+<span class="k">INSERT</span> <span class="k">INTO</span> ClassRegistration <span class="k">VALUES</span> (1, 101, <span class="k">DATE</span> <span class="s">'2026-09-25'</span>, <span class="s">'Attended'</span>);
+<span class="k">INSERT</span> <span class="k">INTO</span> ClassRegistration <span class="k">VALUES</span> (2, 102, <span class="k">DATE</span> <span class="s">'2026-09-26'</span>, <span class="s">'Registered'</span>);
+
+<span class="k">COMMIT</span>;
+
+<span class="c">-- Every class with its subtype details</span>
+<span class="k">SELECT</span> f.ClassID, f.ClassName, f.ClassType,
+       y.YogaStyle, c.BikeType, c.TargetDistance
+<span class="k">FROM</span> FitnessClass f
+<span class="k">LEFT</span> <span class="k">JOIN</span> YogaClass y    <span class="k">ON</span> y.ClassID = f.ClassID
+<span class="k">LEFT</span> <span class="k">JOIN</span> CyclingClass c <span class="k">ON</span> c.ClassID = f.ClassID
+<span class="k">ORDER</span> <span class="k">BY</span> f.ClassID;</pre></div>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-store" aria-labelledby="tab-store" hidden>
+      <h3>Department store business questions</h3>
+      <p>Seven questions answered against a store database of items, suppliers, deliveries, departments and employees. The queries use filtering, pattern matching, a three-table join, and aggregation with GROUP BY and HAVING.</p>
+      <ul class="checks">
+        <li>All seven queries run and return correct results on the course database.</li>
+        <li>Revised for readability: table aliases, named result columns, rounded averages, and department names that match the stored values exactly, so the queries also work on databases that compare text case-sensitively.</li>
+      </ul>
+      <figure>
+        <div class="scroll-x">
+          <table class="result">
+            <thead><tr><th>deptname</th><th>avg_salary</th></tr></thead>
+            <tbody>
+              <tr><td>Marketing</td><td class="n">30,666.67</td></tr>
+              <tr><td>Accounting</td><td class="n">30,000.00</td></tr>
+              <tr><td>Clothes</td><td class="n">16,000.00</td></tr>
+              <tr><td>Books</td><td class="n">15,000.00</td></tr>
+              <tr><td>Furniture</td><td class="n">15,000.00</td></tr>
+              <tr><td>Navigation</td><td class="n">15,000.00</td></tr>
+              <tr><td>Recreation</td><td class="n">15,000.00</td></tr>
+              <tr><td>Equipment</td><td class="n">13,000.00</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <figcaption>Output of query 7: departments averaging under $32,000 in salary.</figcaption>
+      </figure>
+      <div class="code"><pre><span class="c">-- Syla Cintron</span>
+<span class="c">-- CS 160 – Individual SQL assignment: department store database (MySQL)</span>
+<span class="c">-- Revised for readability: column aliases, rounded averages, and</span>
+<span class="c">-- department names written exactly as stored.</span>
+
+<span class="c">-- 1. Which item types does the store sell?</span>
+<span class="k">SELECT</span> <span class="k">DISTINCT</span> itemtype
+<span class="k">FROM</span> items_for_sale;
+
+<span class="c">-- 2. Which deliveries went to the Equipment department?</span>
+<span class="k">SELECT</span> delivery_no
+<span class="k">FROM</span> store_delivery
+<span class="k">WHERE</span> deptname = <span class="s">'Equipment'</span>;
+
+<span class="c">-- 3. Which suppliers are manufacturers?</span>
+<span class="k">SELECT</span> *
+<span class="k">FROM</span> store_suppliers
+<span class="k">WHERE</span> supplier_name <span class="k">LIKE</span> <span class="s">'%Manufacturing%'</span>;
+
+<span class="c">-- 4. How many people work in Marketing?</span>
+<span class="k">SELECT</span> <span class="k">COUNT</span>(*) <span class="k">AS</span> marketing_headcount
+<span class="k">FROM</span> store_employees
+<span class="k">WHERE</span> deptname = <span class="s">'Marketing'</span>;
+
+<span class="c">-- 5. Which items are supplied by All Sports Manufacturing?</span>
+<span class="k">SELECT</span> <span class="k">DISTINCT</span> i.itemname
+<span class="k">FROM</span> store_suppliers s
+<span class="k">JOIN</span> store_delivery d <span class="k">ON</span> s.supplier_no = d.supplier_no
+<span class="k">JOIN</span> items_for_sale i <span class="k">ON</span> d.itemname    = i.itemname
+<span class="k">WHERE</span> s.supplier_name = <span class="s">'All Sports Manufacturing'</span>;
+
+<span class="c">-- 6. Which department phone should be called about each delivered item?</span>
+<span class="k">SELECT</span> d.itemname, dep.deptphone
+<span class="k">FROM</span> store_delivery d
+<span class="k">JOIN</span> store_departments dep <span class="k">ON</span> d.deptname = dep.deptname
+<span class="k">ORDER</span> <span class="k">BY</span> d.itemname;
+
+<span class="c">-- 7. Which departments average under $32,000 in salary?</span>
+<span class="k">SELECT</span> deptname, <span class="k">ROUND</span>(<span class="k">AVG</span>(empsalary), 2) <span class="k">AS</span> avg_salary
+<span class="k">FROM</span> store_employees
+<span class="k">GROUP</span> <span class="k">BY</span> deptname
+<span class="k">HAVING</span> <span class="k">AVG</span>(empsalary) &lt; 32000
+<span class="k">ORDER</span> <span class="k">BY</span> avg_salary <span class="k">DESC</span>;</pre></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="skills">
+    <h2 id="skills">Skills</h2>
+    <div class="skills">
+      <div><h4>Analysis &amp; modeling</h4><p>Multiple regression, interaction terms, model diagnostics, classification, cost-benefit model selection, data cleaning</p></div>
+      <div><h4>Languages &amp; tools</h4><p>Python, R / RStudio, SQL (MySQL, Oracle), MySQL Workbench, Excel, HTML, CSS, JavaScript</p></div>
+      <div><h4>Coursework</h4><p>Regression Analysis, Statistics, Database Management, Introduction to Machine Learning, Calculus</p></div>
+      <div><h4>Leadership</h4><p>Orientation Leader at Bentley University since August 2025, mentoring 22 first-year students</p></div>
+    </div>
+  </section>
+
+  <footer>Syla Cintron · Bentley University, Class of 2028</footer>
+</div>
+
+<script>
+(function () {
+  var tabs = document.querySelectorAll('[role="tab"]');
+  function select(tab) {
+    tabs.forEach(function (t) {
+      var on = t === tab;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { select(t); });
+    t.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      var next = tabs[(i + d + tabs.length) % tabs.length];
+      select(next); next.focus();
+    });
+  });
+
+  var btn = document.getElementById('copy-email');
+  btn.addEventListener('click', function () {
+    var text = document.getElementById('email').textContent;
+    function selectText() {
+      var r = document.createRange(); r.selectNodeContents(document.getElementById('email'));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'Selected';
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; }, selectText);
+    } catch (e) { selectText(); }
+    setTimeout(function () { btn.textContent = 'Copy email'; }, 2000);
+  });
+})();
+</script>
+</body>
+</html>
